@@ -115,8 +115,12 @@ def hangman(secret_word):
         if letter.isalpha() == True and len(letter) == 1:
           if letter in secret_word:
             if letter in used_letters:
-              warnings-=1
-              print('Oops! You have already guessed that letter.\nYou have',warnings,'warnings left: ',get_guessed_word(secret_word,got_letters))
+              if warnings<=0:
+                guesses = guesses-1
+                print('Oops! You\'ve already guessed that letter.\nYou have no warnings left so you lose one guess: ',get_guessed_word(secret_word,got_letters))
+              else:
+                warnings-=1
+                print('Oops! You have already guessed that letter.\nYou have',warnings,'warnings left: ',get_guessed_word(secret_word,got_letters))
               continue
             else:
               got_letters.append(letter)
@@ -131,7 +135,7 @@ def hangman(secret_word):
                 time.sleep(20)
                 break
           elif letter not in secret_word and letter in used_letters:
-            if warnings==0:
+            if warnings<=0:
               guesses = guesses-1
               print('Oops! You\'ve already guessed that letter.\nYou have no warnings left so you lose one guess: ',get_guessed_word(secret_word,got_letters))
             else:
@@ -148,7 +152,7 @@ def hangman(secret_word):
             print('Oops! That letter is not in my word: ',get_guessed_word(secret_word,got_letters))
             continue  
         else:
-          if warnings<0:
+          if warnings!=0:
             guesses = guesses-1
             print('Oops! You\'ve already guessed that letter. You have no warnings left so you lose one guess: ',get_guessed_word(secret_word,got_letters))
           else:
@@ -238,8 +242,12 @@ def hangman_with_hints(secret_word):
         if letter.isalpha() == True and len(letter) == 1:
           if letter in secret_word:
             if letter in used_letters:
-              warnings-=1
-              print('Oops! You have already guessed that letter.\nYou have',warnings,'warnings left: ',get_guessed_word(secret_word,got_letters))
+              if warnings<=0:
+                guesses = guesses-1
+                print('Oops! You\'ve already guessed that letter.\nYou have no warnings left so you lose one guess: ',get_guessed_word(secret_word,got_letters))
+              else:
+                warnings-=1
+                print('Oops! You have already guessed that letter.\nYou have',warnings,'warnings left: ',get_guessed_word(secret_word,got_letters))
               continue
             else:
               got_letters.append(letter)
@@ -254,7 +262,7 @@ def hangman_with_hints(secret_word):
                 time.sleep(20)
                 break
           elif letter not in secret_word and letter in used_letters:
-            if warnings==0:
+            if warnings<=0:
               guesses = guesses-1
               print('Oops! You\'ve already guessed that letter.\nYou have no warnings left so you lose one guess: ',get_guessed_word(secret_word,got_letters))
             else:
@@ -275,7 +283,7 @@ def hangman_with_hints(secret_word):
             print('Possible word matches are: ',show_possible_matches(get_guessed_word(secret_word,got_letters)))
             continue
           else:
-            if warnings<0:
+            if warnings!=0:
               guesses = guesses-1
               print('Oops! You\'ve already guessed that letter. You have no warnings left so you lose one guess: ',get_guessed_word(secret_word,got_letters))
             else:
